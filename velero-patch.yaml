@@ -1,0 +1,7 @@
+spec:
+  template:
+    spec:
+      containers:
+      - args:
+        name: velero
+        image: quay.io/brito_rafa/velero:dev-2251-0401-a

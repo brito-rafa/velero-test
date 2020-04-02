@@ -1,0 +1,182 @@
+
+INFO: Setting up testing cluster
+
+INFO: Onboarding testing app
+namespace/myexample created
+persistentvolumeclaim/php-apache-logs created
+deployment.apps/php-apache created
+service/php-apache created
+cronjob.batch/hellocronjob created
+horizontalpodautoscaler.autoscaling/php-apache-autoscaler created
+NAME                    REFERENCE               TARGETS                       MINPODS   MAXPODS   REPLICAS   AGE
+php-apache-autoscaler   Deployment/php-apache   <unknown>/1k, <unknown>/75%   1         10        0          0s
+
+INFO: Installing Velero default
+CustomResourceDefinition/backups.velero.io: attempting to create resource
+CustomResourceDefinition/backups.velero.io: created
+CustomResourceDefinition/backupstoragelocations.velero.io: attempting to create resource
+CustomResourceDefinition/backupstoragelocations.velero.io: created
+CustomResourceDefinition/deletebackuprequests.velero.io: attempting to create resource
+CustomResourceDefinition/deletebackuprequests.velero.io: created
+CustomResourceDefinition/downloadrequests.velero.io: attempting to create resource
+CustomResourceDefinition/downloadrequests.velero.io: created
+CustomResourceDefinition/podvolumebackups.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumebackups.velero.io: created
+CustomResourceDefinition/podvolumerestores.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumerestores.velero.io: created
+CustomResourceDefinition/resticrepositories.velero.io: attempting to create resource
+CustomResourceDefinition/resticrepositories.velero.io: created
+CustomResourceDefinition/restores.velero.io: attempting to create resource
+CustomResourceDefinition/restores.velero.io: created
+CustomResourceDefinition/schedules.velero.io: attempting to create resource
+CustomResourceDefinition/schedules.velero.io: created
+CustomResourceDefinition/serverstatusrequests.velero.io: attempting to create resource
+CustomResourceDefinition/serverstatusrequests.velero.io: created
+CustomResourceDefinition/volumesnapshotlocations.velero.io: attempting to create resource
+CustomResourceDefinition/volumesnapshotlocations.velero.io: created
+Waiting for resources to be ready in cluster...
+Namespace/velero: attempting to create resource
+Namespace/velero: created
+ClusterRoleBinding/velero: attempting to create resource
+ClusterRoleBinding/velero: created
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+
+INFO: Taking a Velero default backup
+Backup request "clusterlevel-default-1-3-1-04011701" submitted successfully.
+Run `velero backup describe clusterlevel-default-1-3-1-04011701` or `velero backup logs clusterlevel-default-1-3-1-04011701` for more details.
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   InProgress   2020-04-01 17:03:23 -0500 CDT   29d       default            <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   InProgress   2020-04-01 17:03:23 -0500 CDT   29d       default            <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   InProgress   2020-04-01 17:03:23 -0500 CDT   29d       default            <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-default-1-3-1-04011701   InProgress   2020-04-01 17:03:23 -0500 CDT   29d       default            <none>
+INFO: Default backup complete
+
+INFO: Installing Velero testing version
+namespace "velero" deleted
+CustomResourceDefinition/backups.velero.io: attempting to create resource
+CustomResourceDefinition/backups.velero.io: already exists, proceeding
+CustomResourceDefinition/backups.velero.io: created
+CustomResourceDefinition/backupstoragelocations.velero.io: attempting to create resource
+CustomResourceDefinition/backupstoragelocations.velero.io: already exists, proceeding
+CustomResourceDefinition/backupstoragelocations.velero.io: created
+CustomResourceDefinition/deletebackuprequests.velero.io: attempting to create resource
+CustomResourceDefinition/deletebackuprequests.velero.io: already exists, proceeding
+CustomResourceDefinition/deletebackuprequests.velero.io: created
+CustomResourceDefinition/downloadrequests.velero.io: attempting to create resource
+CustomResourceDefinition/downloadrequests.velero.io: already exists, proceeding
+CustomResourceDefinition/downloadrequests.velero.io: created
+CustomResourceDefinition/podvolumebackups.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumebackups.velero.io: already exists, proceeding
+CustomResourceDefinition/podvolumebackups.velero.io: created
+CustomResourceDefinition/podvolumerestores.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumerestores.velero.io: already exists, proceeding
+CustomResourceDefinition/podvolumerestores.velero.io: created
+CustomResourceDefinition/resticrepositories.velero.io: attempting to create resource
+CustomResourceDefinition/resticrepositories.velero.io: already exists, proceeding
+CustomResourceDefinition/resticrepositories.velero.io: created
+CustomResourceDefinition/restores.velero.io: attempting to create resource
+CustomResourceDefinition/restores.velero.io: already exists, proceeding
+CustomResourceDefinition/restores.velero.io: created
+CustomResourceDefinition/schedules.velero.io: attempting to create resource
+CustomResourceDefinition/schedules.velero.io: already exists, proceeding
+CustomResourceDefinition/schedules.velero.io: created
+CustomResourceDefinition/serverstatusrequests.velero.io: attempting to create resource
+CustomResourceDefinition/serverstatusrequests.velero.io: already exists, proceeding
+CustomResourceDefinition/serverstatusrequests.velero.io: created
+CustomResourceDefinition/volumesnapshotlocations.velero.io: attempting to create resource
+CustomResourceDefinition/volumesnapshotlocations.velero.io: already exists, proceeding
+CustomResourceDefinition/volumesnapshotlocations.velero.io: created
+Waiting for resources to be ready in cluster...
+Namespace/velero: attempting to create resource
+Namespace/velero: created
+ClusterRoleBinding/velero: attempting to create resource
+ClusterRoleBinding/velero: already exists, proceeding
+ClusterRoleBinding/velero: created
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+INFO: Image running
+        image: quay.io/brito_rafa/velero:dev-2251-0401-a
+
+INFO: Creating testing backup
+Backup request "clusterlevel-dev-2251-0401-a-04011701" submitted successfully.
+Run `velero backup describe clusterlevel-dev-2251-0401-a-04011701` or `velero backup logs clusterlevel-dev-2251-0401-a-04011701` for more details.
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-dev-2251-0401-a-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-dev-2251-0401-a-04011701   New      <nil>     29d                          <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-dev-2251-0401-a-04011701   InProgress   2020-04-01 17:04:29 -0500 CDT   29d       default            <none>
+Waiting backup... Break if it is taking longer than expected...
+clusterlevel-dev-2251-0401-a-04011701   InProgress   2020-04-01 17:04:29 -0500 CDT   29d       default            <none>
+
+INFO: Testing restore...
+namespace "myexample" deleted
+Restore request "clusterlevel-dev-2251-0401-a-04011701-20200401170508" submitted successfully.
+Run `velero restore describe clusterlevel-dev-2251-0401-a-04011701-20200401170508` or `velero restore logs clusterlevel-dev-2251-0401-a-04011701-20200401170508` for more details.
+Waiting restore...
+clusterlevel-dev-2251-0401-a-04011701-20200401170508   clusterlevel-dev-2251-0401-a-04011701   InProgress   0          0        2020-04-01 17:05:08 -0500 CDT   <none>
+Waiting restore...
+clusterlevel-dev-2251-0401-a-04011701-20200401170508   clusterlevel-dev-2251-0401-a-04011701   InProgress   0          0        2020-04-01 17:05:08 -0500 CDT   <none>
+Waiting restore...
+clusterlevel-dev-2251-0401-a-04011701-20200401170508   clusterlevel-dev-2251-0401-a-04011701   InProgress   0          0        2020-04-01 17:05:08 -0500 CDT   <none>
+NAME                                                   BACKUP                                  STATUS      WARNINGS   ERRORS   CREATED                         SELECTOR
+clusterlevel-dev-2251-0401-a-04011701-20200401170508   clusterlevel-dev-2251-0401-a-04011701   Completed   23         0        2020-04-01 17:05:08 -0500 CDT   <none>
+NAME                    REFERENCE               TARGETS                       MINPODS   MAXPODS   REPLICAS   AGE
+php-apache-autoscaler   Deployment/php-apache   <unknown>/1k, <unknown>/75%   1         10        0          5s
+Backup clusterlevel-dev-2251-0401-a-04011701 has been successfully downloaded to /Users/rbrito/github/test/clusterlevel-dev-2251-0401-a-04011701/clusterlevel-dev-2251-0401-a-04011701-data.tar.gz
+Backup clusterlevel-default-1-3-1-04011701 has been successfully downloaded to /Users/rbrito/github/test/clusterlevel-default-1-3-1-04011701/clusterlevel-default-1-3-1-04011701-data.tar.gz
+
+INFO: Comparing the two backups - ignore errors on velero objects and time based objects - some might not exist among the two backups
+
+resources//replicasets.apps/namespaces/velero/velero-fd75fbd6c.json not equal
+resources//secrets/namespaces/velero/default-token-b92l2.json not equal
+resources//secrets/namespaces/velero/velero-token-jclqn.json not equal
+resources//pods/namespaces/velero/velero-fd75fbd6c-bprpg.json not equal
+
+INFO: Deleting cluster
