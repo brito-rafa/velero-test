@@ -21,7 +21,7 @@ export BUCKET=brito-rafa-velero
 export REGION=us-east-2
 export SECRETFILE=credentials-velero
 
-export VERSION=dev-2251-0401-a
+export VERSION=dev-2251-0405-a
 export PREFIX=$VERSION
 
 # installing with 1.3.1 initially
@@ -42,13 +42,13 @@ echo "INFO: Taking a Velero default backup"
 velerodefaultbackup="clusterlevel-default-1-3-1-$timestamp"
 velero backup create $velerodefaultbackup
 
-while  [ "$(velero backup get ${velerodefaultbackup} | tail -1 | awk '{print $2}')" != "Completed" ]; do echo "Waiting backup... Break if it is taking longer than expected..." && velero backup get ${velerodefaultbackup} | tail -1 && sleep 5 ; done
+while  [ "$(velero backup get ${velerodefaultbackup} | tail -1 | awk '{print $2}')" != "Completed" ]; do echo "Waiting backup... Break if it is taking longer than expected..." && velero backup get ${velerodefaultbackup} | tail -1 && sleep 10 ; done
 
 echo "INFO: Default backup complete"
 
 # Deleting current velero deployment and installing with the patched release
 echo ""
-echo "INFO: Installing Velero testing version"
+echo "INFO: Installing Velero $VERSION testing version"
 kubectl delete namespace velero
 
 export IMAGE=quay.io/brito_rafa/velero:$VERSION
@@ -78,10 +78,38 @@ while  [ "$(velero backup get ${velerotestingbackup} | tail -1 | awk '{print $2}
 echo ""
 echo "INFO: Testing restore..."
 
-kubectl delete namespace myexample
+echo "INFO: Deleting initial cluster..."
+kind delete cluster --name=velero-dev
 
-# restoring from backup taken with 2251-patch
-velero restore create --from-backup ${velerotestingbackup}
+echo ""
+echo "INFO: Creating a brand new k8s cluster, with a higher k8s version..."
+kind create cluster --image=kindest/node:v1.18.0 --name velero-dev || exit 1
+
+echo ""
+echo "INFO: Installing Velero 1.3.1 default"
+velero install \
+  --provider aws \
+  --plugins velero/velero-plugin-for-aws:v1.0.0 \
+  --bucket $BUCKET \
+  --prefix $PREFIX \
+  --backup-location-config region=$REGION \
+  --snapshot-location-config region=$REGION \
+  --secret-file $SECRETFILE 
+
+echo "INFO: Waiting Velero controller to start..."
+
+while  [ "$(velero backup get ${velerotestingbackup} 2>/dev/null | tail -1 | awk '{print $2}')" != "Completed" ]; do echo "Waiting Velero controller... Break if it is taking multiple minutes ..." && sleep 30 ; done
+
+echo ""
+echo "INFO: Restoring from backup taken with 2251-patch"
+
+if  [ "$(velero backup get | tail -1 | awk '{print $1}')" == "${velerotestingbackup}" ]; then
+	# restoring from backup taken with 2251-patch
+	velero restore create --from-backup ${velerotestingbackup} || exit 2
+else
+	echo "ERROR: Could not find backup ${velerotestingbackup}"
+	exit 1
+fi
 
 restorename=`velero restore get | grep -v NAME | awk '{print $1}'`
 
@@ -115,7 +143,8 @@ tar -xvzf ${velerodefaultbackup}-data.tar.gz
 echo ""
 echo "INFO: Comparing the two backups - ignore errors on velero objects and time based objects - some might not exist among the two backups"
 echo ""
-for i in `find resources/ -type f -not -path "*/events/*"`; do origprefversion=`cat ${i} | awk -F\" '{print $4}'` && patchprefversion=`cat ../${velerotestingbackup}/${i} | awk -F\" '{print $4}'` && [[ $origprefversion != $patchprefversion ]] && echo "${i} not equal"; done
+# comparing the version of each item - field #4 of the json
+for i in `find resources/ -type f -not -path "*/events/*"`; do origprefversion=`cat ${i} | awk -F\" '{print $4}'` && patchprefversion=`cat ../${velerotestingbackup}/${i} 2>/dev/null | awk -F\" '{print $4}'` && [[ $origprefversion != $patchprefversion ]] && echo "${i} not equal"; done
 
 cd ../../
 
