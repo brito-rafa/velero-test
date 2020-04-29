@@ -1,0 +1,10 @@
+spec:
+  template:
+    spec:
+      containers:
+      - args:
+        - server
+        - --log-level
+        - debug
+        - --features=EnableAPIGroupVersions
+        name: velero

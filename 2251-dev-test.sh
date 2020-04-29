@@ -21,7 +21,7 @@ export BUCKET=brito-rafa-velero
 export REGION=us-east-2
 export SECRETFILE=credentials-velero
 
-export VERSION=dev-2251-0405-a
+export VERSION=dev-2251-0428-b
 export PREFIX=$VERSION
 
 # installing with 1.3.1 initially
@@ -66,6 +66,9 @@ velero install \
 echo "INFO: Image running"
 # showing that velero is now running with patch version
 kubectl get deployment velero -n velero -o yaml | grep -m 1 'image:'
+
+echo "INFO: Enabling All Versions backup"
+kubectl patch deployment velero --patch "$(cat velero-allversions-patch.yaml)" -n velero || exit 1
 
 echo ""
 echo "INFO: Creating testing backup"
