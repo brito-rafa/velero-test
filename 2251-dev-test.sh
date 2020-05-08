@@ -19,7 +19,7 @@ kubectl get hpa php-apache-autoscaler -n myexample
 # setting up velero
 export BUCKET=brito-rafa-velero
 export REGION=us-east-2
-export SECRETFILE=credentials-velero
+export SECRETFILE=credentials-velero # bring your own credentials - see credentials-velero.example for an example
 
 export VERSION=dev-2251-0428-b
 export PREFIX=$VERSION
