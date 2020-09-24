@@ -51,7 +51,7 @@ velero install \
 # format velero plugin add <registry>/<image>:<tag>
 echo ""
 echo "deploy the plugins..."
-velero plugin add docker.io/bikeskinh/velero-plugin-scc-2-psp:0922-a
+velero plugin add docker.io/bikeskinh/velero-plugin-example:0922-a
 
 echo ""
 echo "INFO: Creating 1.5.1 backup"
