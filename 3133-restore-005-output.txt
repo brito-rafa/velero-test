@@ -1,0 +1,1095 @@
+INFO: Restore Testing the following image: projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.5
+INFO: Starting testing script - it uses all cases from https://github.com/brito-rafa/k8s-webhooks/tree/master/examples-for-projectvelero
+INFO: Starting restore
+
+INFO: case-a Starting the restore case case-a
+
+INFO: case-a Delete testing cluster if it already exists
+
+INFO: case-a Setting up testing cluster - this is restore, we want the most modern k8s version
+INFO: case-a Onboarding testing CRD and CR - case-a
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+namespace/cert-manager created
+serviceaccount/cert-manager-cainjector created
+serviceaccount/cert-manager created
+serviceaccount/cert-manager-webhook created
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrole.rbac.authorization.k8s.io/cert-manager-view created
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+service/cert-manager created
+service/cert-manager-webhook created
+deployment.apps/cert-manager-cainjector created
+deployment.apps/cert-manager created
+deployment.apps/cert-manager-webhook created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+INFO: Waiting cert-manager...
+INFO: Waiting cert-manager...
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-h6xfs              0/1     Pending   0          9s
+cert-manager-cainjector-597859f766-n2wp5   0/1     Pending   0          9s
+cert-manager-webhook-7d749b578f-ld9ml      0/1     Pending   0          9s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS              RESTARTS   AGE
+cert-manager-64cdb5b965-h6xfs              0/1     ContainerCreating   0          19s
+cert-manager-cainjector-597859f766-n2wp5   1/1     Running             0          19s
+cert-manager-webhook-7d749b578f-ld9ml      0/1     Running             0          19s
+namespace/music-system created
+customresourcedefinition.apiextensions.k8s.io/rockbands.music.example.io created
+role.rbac.authorization.k8s.io/music-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/music-manager-role created
+clusterrole.rbac.authorization.k8s.io/music-proxy-role created
+clusterrole.rbac.authorization.k8s.io/music-metrics-reader created
+rolebinding.rbac.authorization.k8s.io/music-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-proxy-rolebinding created
+service/music-controller-manager-metrics-service created
+service/music-webhook-service created
+deployment.apps/music-controller-manager created
+certificate.cert-manager.io/music-serving-cert created
+issuer.cert-manager.io/music-selfsigned-issuer created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/music-mutating-webhook-configuration created
+validatingwebhookconfiguration.admissionregistration.k8s.io/music-validating-webhook-configuration created
+INFO: Waiting music-system...
+NAME                                        READY   STATUS              RESTARTS   AGE
+music-controller-manager-78897c48f8-55j57   0/2     ContainerCreating   0          1s
+INFO: Run a Velero Restore or create the testing CRs running:
+    kubectl create --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-a/target/music/config/samples/music_v1_rockband.yaml
+    kubectl create --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-a/target/music/config/samples/music_v2beta1_rockband.yaml
+
+INFO: case-a Installing Velero projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.5
+CustomResourceDefinition/backups.velero.io: attempting to create resource
+CustomResourceDefinition/backups.velero.io: created
+CustomResourceDefinition/backupstoragelocations.velero.io: attempting to create resource
+CustomResourceDefinition/backupstoragelocations.velero.io: created
+CustomResourceDefinition/deletebackuprequests.velero.io: attempting to create resource
+CustomResourceDefinition/deletebackuprequests.velero.io: created
+CustomResourceDefinition/downloadrequests.velero.io: attempting to create resource
+CustomResourceDefinition/downloadrequests.velero.io: created
+CustomResourceDefinition/podvolumebackups.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumebackups.velero.io: created
+CustomResourceDefinition/podvolumerestores.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumerestores.velero.io: created
+CustomResourceDefinition/resticrepositories.velero.io: attempting to create resource
+CustomResourceDefinition/resticrepositories.velero.io: created
+CustomResourceDefinition/restores.velero.io: attempting to create resource
+CustomResourceDefinition/restores.velero.io: created
+CustomResourceDefinition/schedules.velero.io: attempting to create resource
+CustomResourceDefinition/schedules.velero.io: created
+CustomResourceDefinition/serverstatusrequests.velero.io: attempting to create resource
+CustomResourceDefinition/serverstatusrequests.velero.io: created
+CustomResourceDefinition/volumesnapshotlocations.velero.io: attempting to create resource
+CustomResourceDefinition/volumesnapshotlocations.velero.io: created
+Waiting for resources to be ready in cluster...
+Namespace/velero: attempting to create resource
+Namespace/velero: created
+ClusterRoleBinding/velero: attempting to create resource
+ClusterRoleBinding/velero: created
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+INFO: case-a Enabling --log-level debug on velero
+deployment.apps/velero patched
+
+INFO: case-a Waiting Velero controller to start...
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS     RESTARTS   AGE
+velero-7f5c5dd6cb-zt7pk   0/1     Init:0/1   0          0s
+velero-fb845c8b8-6ngzt    0/1     Init:0/1   0          0s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-zt7pk   0/1     PodInitializing   0          10s
+velero-fb845c8b8-6ngzt    0/1     PodInitializing   0          10s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-zt7pk   0/1     PodInitializing   0          20s
+velero-fb845c8b8-6ngzt    0/1     PodInitializing   0          20s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-zt7pk   0/1     PodInitializing   0          31s
+velero-fb845c8b8-6ngzt    0/1     PodInitializing   0          31s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-zt7pk   0/1     PodInitializing   0          41s
+velero-fb845c8b8-6ngzt    0/1     PodInitializing   0          41s
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-a-20210204 ... Break if it is taking multiple minutes ...
+Restore request "case-a-20210204-20210204141917" submitted successfully.
+Run `velero restore describe case-a-20210204-20210204141917` or `velero restore logs case-a-20210204-20210204141917` for more details.
+Waiting restore...
+case-a-20210204-20210204141917   case-a-20210204   InProgress   2021-02-04 14:19:17 -0600 CST   <nil>       0        0          2021-02-04 14:19:17 -0600 CST   <none>
+NAME                             BACKUP            STATUS      STARTED                         COMPLETED                       ERRORS   WARNINGS   CREATED                         SELECTOR
+case-a-20210204-20210204141917   case-a-20210204   Completed   2021-02-04 14:19:17 -0600 CST   2021-02-04 14:19:22 -0600 CST   0        1          2021-02-04 14:19:17 -0600 CST   <none>
+INFO: case-a Log messages regarding the priority
+time="2021-02-04T20:19:18Z" level=debug msg="APIGroupVersionsFeatureFlag Priority 1: Cluster preferred API group version v1 found in backup for rockbands.music.example.io" logSource="pkg/restore/prioritize_group_version.go:98" restore=velero/case-a-20210204-20210204141917
+INFO: case-a Custom Resources restored for case-a
+INFO: case-a success criteria - originally created v1alpha1 CR with converted fields on a v2beta1 CR
+apiVersion: music.example.io/v2beta1
+    rockbands.music.example.io/originalVersion: v1alpha1
+  - apiVersion: music.example.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+  - apiVersion: music.example.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+  name: beatles
+  namespace: rockbands-v1alpha1
+  selfLink: /apis/music.example.io/v2beta1/namespaces/rockbands-v1alpha1/rockbands/beatles
+  leadGuitar: Converted from v1
+  leadSinger: Converted from v1alpha1
+INFO: case-b Starting the restore case case-b
+
+INFO: case-b Delete testing cluster if it already exists
+
+INFO: case-b Setting up testing cluster - this is restore, we want the most modern k8s version
+INFO: case-b Onboarding testing CRD and CR - case-b
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+namespace/cert-manager created
+serviceaccount/cert-manager-cainjector created
+serviceaccount/cert-manager created
+serviceaccount/cert-manager-webhook created
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrole.rbac.authorization.k8s.io/cert-manager-view created
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+service/cert-manager created
+service/cert-manager-webhook created
+deployment.apps/cert-manager-cainjector created
+deployment.apps/cert-manager created
+deployment.apps/cert-manager-webhook created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+INFO: Waiting cert-manager...
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-4hw4z              0/1     Pending   0          2s
+cert-manager-cainjector-597859f766-vvjh7   0/1     Pending   0          2s
+cert-manager-webhook-7d749b578f-gmppc      0/1     Pending   0          2s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS              RESTARTS   AGE
+cert-manager-64cdb5b965-4hw4z              1/1     Running             0          12s
+cert-manager-cainjector-597859f766-vvjh7   0/1     ContainerCreating   0          12s
+cert-manager-webhook-7d749b578f-gmppc      0/1     Running             0          12s
+namespace/music-system created
+customresourcedefinition.apiextensions.k8s.io/rockbands.music.example.io created
+role.rbac.authorization.k8s.io/music-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/music-manager-role created
+clusterrole.rbac.authorization.k8s.io/music-proxy-role created
+clusterrole.rbac.authorization.k8s.io/music-metrics-reader created
+rolebinding.rbac.authorization.k8s.io/music-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-proxy-rolebinding created
+service/music-controller-manager-metrics-service created
+service/music-webhook-service created
+deployment.apps/music-controller-manager created
+certificate.cert-manager.io/music-serving-cert created
+issuer.cert-manager.io/music-selfsigned-issuer created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/music-mutating-webhook-configuration created
+validatingwebhookconfiguration.admissionregistration.k8s.io/music-validating-webhook-configuration created
+INFO: Waiting music-system...  Break if it is taking too long...
+NAME                                       READY   STATUS              RESTARTS   AGE
+music-controller-manager-f99ffd6fd-sqd5r   0/2     ContainerCreating   0          2s
+INFO: Run a Velero Restore or create the testing CRs running:
+    kubectl create --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-b/target/music/config/samples/music_v2beta2_rockband.yaml
+    kubectl create --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-b/target/music/config/samples/music_v2beta1_rockband.yaml
+
+INFO: case-b Installing Velero projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.5
+CustomResourceDefinition/backups.velero.io: attempting to create resource
+CustomResourceDefinition/backups.velero.io: created
+CustomResourceDefinition/backupstoragelocations.velero.io: attempting to create resource
+CustomResourceDefinition/backupstoragelocations.velero.io: created
+CustomResourceDefinition/deletebackuprequests.velero.io: attempting to create resource
+CustomResourceDefinition/deletebackuprequests.velero.io: created
+CustomResourceDefinition/downloadrequests.velero.io: attempting to create resource
+CustomResourceDefinition/downloadrequests.velero.io: created
+CustomResourceDefinition/podvolumebackups.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumebackups.velero.io: created
+CustomResourceDefinition/podvolumerestores.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumerestores.velero.io: created
+CustomResourceDefinition/resticrepositories.velero.io: attempting to create resource
+CustomResourceDefinition/resticrepositories.velero.io: created
+CustomResourceDefinition/restores.velero.io: attempting to create resource
+CustomResourceDefinition/restores.velero.io: created
+CustomResourceDefinition/schedules.velero.io: attempting to create resource
+CustomResourceDefinition/schedules.velero.io: created
+CustomResourceDefinition/serverstatusrequests.velero.io: attempting to create resource
+CustomResourceDefinition/serverstatusrequests.velero.io: created
+CustomResourceDefinition/volumesnapshotlocations.velero.io: attempting to create resource
+CustomResourceDefinition/volumesnapshotlocations.velero.io: created
+Waiting for resources to be ready in cluster...
+Namespace/velero: attempting to create resource
+Namespace/velero: created
+ClusterRoleBinding/velero: attempting to create resource
+ClusterRoleBinding/velero: created
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+INFO: case-b Enabling --log-level debug on velero
+deployment.apps/velero patched
+
+INFO: case-b Waiting Velero controller to start...
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS     RESTARTS   AGE
+velero-7f5c5dd6cb-jckjz   0/1     Init:0/1   0          0s
+velero-fb845c8b8-nq5gw    0/1     Init:0/1   0          0s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-jckjz   0/1     PodInitializing   0          10s
+velero-fb845c8b8-nq5gw    0/1     PodInitializing   0          10s
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-b-20210204 ... Break if it is taking multiple minutes ...
+NAME              STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+case-b-20210204   Completed   0        0          2021-02-04 13:21:10 -0600 CST   29d       default            <none>
+Restore request "case-b-20210204-20210204142152" submitted successfully.
+Run `velero restore describe case-b-20210204-20210204142152` or `velero restore logs case-b-20210204-20210204142152` for more details.
+Waiting restore...
+case-b-20210204-20210204142152   case-b-20210204   InProgress   2021-02-04 14:21:52 -0600 CST   <nil>       0        0          2021-02-04 14:21:52 -0600 CST   <none>
+NAME                             BACKUP            STATUS      STARTED                         COMPLETED                       ERRORS   WARNINGS   CREATED                         SELECTOR
+case-b-20210204-20210204142152   case-b-20210204   Completed   2021-02-04 14:21:52 -0600 CST   2021-02-04 14:21:57 -0600 CST   0        1          2021-02-04 14:21:52 -0600 CST   <none>
+INFO: case-b Log messages regarding the priority
+time="2021-02-04T20:21:52Z" level=debug msg="APIGroupVersionsFeatureFlag Priority 1: Cluster preferred API group version v2beta2 found in backup for rockbands.music.example.io" logSource="pkg/restore/prioritize_group_version.go:98" restore=velero/case-b-20210204-20210204142152
+INFO: case-b Custom Resources restored for case-b
+INFO: case-b success criteria - originally created v1 CR with converted fields on a v2beta2 CR
+apiVersion: music.example.io/v2beta2
+    rockbands.music.example.io/originalVersion: v1
+  - apiVersion: music.example.io/v2beta2
+    fieldsType: FieldsV1
+    fieldsV1:
+  - apiVersion: music.example.io/v2beta2
+    fieldsType: FieldsV1
+    fieldsV1:
+        f:leadGuitar: {}
+        f:leadSinger: {}
+  name: beatles
+  namespace: rockbands-v1
+  selfLink: /apis/music.example.io/v2beta2/namespaces/rockbands-v1/rockbands/beatles
+  drummer: Converted from v1
+  leadGuitar: Converted from v1
+  leadSinger: John Lennon
+INFO: case-c Starting the restore case case-c
+
+INFO: case-c Delete testing cluster if it already exists
+
+INFO: case-c Setting up testing cluster - this is restore, we want the most modern k8s version
+INFO: case-c Onboarding testing CRD and CR - case-c
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+namespace/cert-manager created
+serviceaccount/cert-manager-cainjector created
+serviceaccount/cert-manager created
+serviceaccount/cert-manager-webhook created
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrole.rbac.authorization.k8s.io/cert-manager-view created
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+service/cert-manager created
+service/cert-manager-webhook created
+deployment.apps/cert-manager-cainjector created
+deployment.apps/cert-manager created
+deployment.apps/cert-manager-webhook created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+INFO: Waiting cert-manager...
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-w5nkd              0/1     Pending   0          0s
+cert-manager-cainjector-597859f766-k2dsc   0/1     Pending   0          0s
+cert-manager-webhook-7d749b578f-6qnx7      0/1     Pending   0          0s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-w5nkd              0/1     Pending   0          10s
+cert-manager-cainjector-597859f766-k2dsc   0/1     Pending   0          10s
+cert-manager-webhook-7d749b578f-6qnx7      0/1     Pending   0          10s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS              RESTARTS   AGE
+cert-manager-64cdb5b965-w5nkd              1/1     Running             0          21s
+cert-manager-cainjector-597859f766-k2dsc   1/1     Running             0          21s
+cert-manager-webhook-7d749b578f-6qnx7      0/1     ContainerCreating   0          21s
+namespace/music-system created
+customresourcedefinition.apiextensions.k8s.io/rockbands.music.example.io created
+role.rbac.authorization.k8s.io/music-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/music-manager-role created
+clusterrole.rbac.authorization.k8s.io/music-proxy-role created
+clusterrole.rbac.authorization.k8s.io/music-metrics-reader created
+rolebinding.rbac.authorization.k8s.io/music-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-proxy-rolebinding created
+service/music-controller-manager-metrics-service created
+service/music-webhook-service created
+deployment.apps/music-controller-manager created
+certificate.cert-manager.io/music-serving-cert created
+issuer.cert-manager.io/music-selfsigned-issuer created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/music-mutating-webhook-configuration created
+validatingwebhookconfiguration.admissionregistration.k8s.io/music-validating-webhook-configuration created
+INFO: Waiting music-system...  Break if it is taking too long...
+NAME                                        READY   STATUS              RESTARTS   AGE
+music-controller-manager-6f7b7766d7-ljj4w   0/2     ContainerCreating   0          2s
+NAME                                        READY   STATUS    RESTARTS   AGE
+music-controller-manager-6f7b7766d7-ljj4w   2/2     Running   0          12s
+INFO: Run a Velero Restore or create the testing CRs running:
+    kubectl create --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-c/target/music/config/samples/music_v1_rockband.yaml
+    kubectl create --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-c/target/music/config/samples/music_v2_rockband.yaml
+
+INFO: case-c Installing Velero projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.5
+CustomResourceDefinition/backups.velero.io: attempting to create resource
+CustomResourceDefinition/backups.velero.io: created
+CustomResourceDefinition/backupstoragelocations.velero.io: attempting to create resource
+CustomResourceDefinition/backupstoragelocations.velero.io: created
+CustomResourceDefinition/deletebackuprequests.velero.io: attempting to create resource
+CustomResourceDefinition/deletebackuprequests.velero.io: created
+CustomResourceDefinition/downloadrequests.velero.io: attempting to create resource
+CustomResourceDefinition/downloadrequests.velero.io: created
+CustomResourceDefinition/podvolumebackups.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumebackups.velero.io: created
+CustomResourceDefinition/podvolumerestores.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumerestores.velero.io: created
+CustomResourceDefinition/resticrepositories.velero.io: attempting to create resource
+CustomResourceDefinition/resticrepositories.velero.io: created
+CustomResourceDefinition/restores.velero.io: attempting to create resource
+CustomResourceDefinition/restores.velero.io: created
+CustomResourceDefinition/schedules.velero.io: attempting to create resource
+CustomResourceDefinition/schedules.velero.io: created
+CustomResourceDefinition/serverstatusrequests.velero.io: attempting to create resource
+CustomResourceDefinition/serverstatusrequests.velero.io: created
+CustomResourceDefinition/volumesnapshotlocations.velero.io: attempting to create resource
+CustomResourceDefinition/volumesnapshotlocations.velero.io: created
+Waiting for resources to be ready in cluster...
+Namespace/velero: attempting to create resource
+Namespace/velero: created
+ClusterRoleBinding/velero: attempting to create resource
+ClusterRoleBinding/velero: created
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+INFO: case-c Enabling --log-level debug on velero
+deployment.apps/velero patched
+
+INFO: case-c Waiting Velero controller to start...
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS     RESTARTS   AGE
+velero-7f5c5dd6cb-vf56w   0/1     Init:0/1   0          0s
+velero-fb845c8b8-5gqsl    0/1     Init:0/1   0          0s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-vf56w   0/1     PodInitializing   0          10s
+velero-fb845c8b8-5gqsl    0/1     PodInitializing   0          10s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-vf56w   0/1     PodInitializing   0          21s
+velero-fb845c8b8-5gqsl    0/1     PodInitializing   0          21s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-vf56w   0/1     PodInitializing   0          31s
+velero-fb845c8b8-5gqsl    0/1     PodInitializing   0          31s
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-c-20210204 ... Break if it is taking multiple minutes ...
+NAME              STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+case-c-20210204   Completed   0        0          2021-02-04 13:23:22 -0600 CST   29d       default            <none>
+Restore request "case-c-20210204-20210204142448" submitted successfully.
+Run `velero restore describe case-c-20210204-20210204142448` or `velero restore logs case-c-20210204-20210204142448` for more details.
+Waiting restore...
+case-c-20210204-20210204142448   case-c-20210204   InProgress   2021-02-04 14:24:48 -0600 CST   <nil>       0        0          2021-02-04 14:24:48 -0600 CST   <none>
+NAME                             BACKUP            STATUS      STARTED                         COMPLETED                       ERRORS   WARNINGS   CREATED                         SELECTOR
+case-c-20210204-20210204142448   case-c-20210204   Completed   2021-02-04 14:24:48 -0600 CST   2021-02-04 14:24:53 -0600 CST   0        1          2021-02-04 14:24:48 -0600 CST   <none>
+INFO: case-c Log messages regarding the priority
+time="2021-02-04T20:24:49Z" level=debug msg="APIGroupVersionsFeatureFlag Priority 2: Cluster preferred API group version not found in backup. Using backup preferred version v1 for rockbands.music.example.io" logSource="pkg/restore/prioritize_group_version.go:113" restore=velero/case-c-20210204-20210204142448
+INFO: case-c Custom Resources restored for case-c
+INFO: case-c success criteria - originally created v1alpha1 CR with converted fields on a v2 CR
+apiVersion: music.example.io/v2
+    rockbands.music.example.io/originalVersion: v1alpha1
+  - apiVersion: music.example.io/v2
+    fieldsType: FieldsV1
+    fieldsV1:
+  - apiVersion: music.example.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+        f:leadSinger: {}
+  name: beatles
+  namespace: rockbands-v1alpha1
+  selfLink: /apis/music.example.io/v2/namespaces/rockbands-v1alpha1/rockbands/beatles
+  bass: Converted from v1 to v2
+  drummer: Converted from v1 to v2
+  leadGuitar: Converted from v1 to v2
+  leadSinger: Converted from v1alpha1
+INFO: case-d Starting the restore case case-d
+
+INFO: case-d Delete testing cluster if it already exists
+
+INFO: case-d Setting up testing cluster - this is restore, we want the most modern k8s version
+INFO: case-d Onboarding testing CRD and CR - case-d
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+namespace/cert-manager created
+serviceaccount/cert-manager-cainjector created
+serviceaccount/cert-manager created
+serviceaccount/cert-manager-webhook created
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrole.rbac.authorization.k8s.io/cert-manager-view created
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+service/cert-manager created
+service/cert-manager-webhook created
+deployment.apps/cert-manager-cainjector created
+deployment.apps/cert-manager created
+deployment.apps/cert-manager-webhook created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+INFO: Waiting cert-manager...
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-j8p6b              0/1     Pending   0          1s
+cert-manager-cainjector-597859f766-5g5fb   0/1     Pending   0          1s
+cert-manager-webhook-7d749b578f-7vklv      0/1     Pending   0          1s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-j8p6b              0/1     Pending   0          11s
+cert-manager-cainjector-597859f766-5g5fb   0/1     Pending   0          11s
+cert-manager-webhook-7d749b578f-7vklv      0/1     Pending   0          11s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS              RESTARTS   AGE
+cert-manager-64cdb5b965-j8p6b              1/1     Running             0          21s
+cert-manager-cainjector-597859f766-5g5fb   0/1     ContainerCreating   0          21s
+cert-manager-webhook-7d749b578f-7vklv      0/1     Running             0          21s
+namespace/music-system created
+customresourcedefinition.apiextensions.k8s.io/rockbands.music.example.io created
+role.rbac.authorization.k8s.io/music-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/music-manager-role created
+clusterrole.rbac.authorization.k8s.io/music-proxy-role created
+clusterrole.rbac.authorization.k8s.io/music-metrics-reader created
+rolebinding.rbac.authorization.k8s.io/music-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-proxy-rolebinding created
+service/music-controller-manager-metrics-service created
+service/music-webhook-service created
+deployment.apps/music-controller-manager created
+certificate.cert-manager.io/music-serving-cert created
+issuer.cert-manager.io/music-selfsigned-issuer created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/music-mutating-webhook-configuration created
+validatingwebhookconfiguration.admissionregistration.k8s.io/music-validating-webhook-configuration created
+INFO: Waiting music-system...  Break if it is taking too long...
+NAME                                        READY   STATUS              RESTARTS   AGE
+music-controller-manager-6b684fc7d8-zz985   0/2     ContainerCreating   0          1s
+NAME                                        READY   STATUS    RESTARTS   AGE
+music-controller-manager-6b684fc7d8-zz985   2/2     Running   0          11s
+
+INFO: Run a Velero Restore or create the testing CRs running:
+
+    ## Testing v2
+    kubectl create namespace rockbands-v2
+    kubectl create -n rockbands-v2 --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-d/target/music/config/samples/music_v2_rockband.yaml
+
+    ## Testing v2beta2
+    kubectl create namespace rockbands-v2beta2
+    kubectl create -n rockbands-v2beta2 --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-d/target/music/config/samples/music_v2beta2_rockband.yaml
+
+    ## Testing v2beta1
+    kubectl create namespace rockbands-v2beta1
+    kubectl create -n rockbands-v2beta1 --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-d/target/music/config/samples/music_v2beta1_rockband.yaml
+
+INFO: case-d Installing Velero projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.5
+CustomResourceDefinition/backups.velero.io: attempting to create resource
+CustomResourceDefinition/backups.velero.io: created
+CustomResourceDefinition/backupstoragelocations.velero.io: attempting to create resource
+CustomResourceDefinition/backupstoragelocations.velero.io: created
+CustomResourceDefinition/deletebackuprequests.velero.io: attempting to create resource
+CustomResourceDefinition/deletebackuprequests.velero.io: created
+CustomResourceDefinition/downloadrequests.velero.io: attempting to create resource
+CustomResourceDefinition/downloadrequests.velero.io: created
+CustomResourceDefinition/podvolumebackups.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumebackups.velero.io: created
+CustomResourceDefinition/podvolumerestores.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumerestores.velero.io: created
+CustomResourceDefinition/resticrepositories.velero.io: attempting to create resource
+CustomResourceDefinition/resticrepositories.velero.io: created
+CustomResourceDefinition/restores.velero.io: attempting to create resource
+CustomResourceDefinition/restores.velero.io: created
+CustomResourceDefinition/schedules.velero.io: attempting to create resource
+CustomResourceDefinition/schedules.velero.io: created
+CustomResourceDefinition/serverstatusrequests.velero.io: attempting to create resource
+CustomResourceDefinition/serverstatusrequests.velero.io: created
+CustomResourceDefinition/volumesnapshotlocations.velero.io: attempting to create resource
+CustomResourceDefinition/volumesnapshotlocations.velero.io: created
+Waiting for resources to be ready in cluster...
+Namespace/velero: attempting to create resource
+Namespace/velero: created
+ClusterRoleBinding/velero: attempting to create resource
+ClusterRoleBinding/velero: created
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+INFO: case-d Enabling --log-level debug on velero
+deployment.apps/velero patched
+
+INFO: case-d Waiting Velero controller to start...
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS     RESTARTS   AGE
+velero-7f5c5dd6cb-7mc7z   0/1     Init:0/1   0          0s
+velero-fb845c8b8-m2bn4    0/1     Init:0/1   0          0s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-7mc7z   0/1     PodInitializing   0          10s
+velero-fb845c8b8-m2bn4    0/1     PodInitializing   0          10s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-7mc7z   0/1     PodInitializing   0          20s
+velero-fb845c8b8-m2bn4    0/1     PodInitializing   0          20s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-7mc7z   0/1     PodInitializing   0          30s
+velero-fb845c8b8-m2bn4    0/1     PodInitializing   0          30s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-7mc7z   0/1     PodInitializing   0          40s
+velero-fb845c8b8-m2bn4    0/1     PodInitializing   0          40s
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+NAME              STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+case-d-20210204   Completed   0        0          2021-02-04 13:25:28 -0600 CST   29d       default            <none>
+Restore request "case-d-20210204-20210204142746" submitted successfully.
+Run `velero restore describe case-d-20210204-20210204142746` or `velero restore logs case-d-20210204-20210204142746` for more details.
+Waiting restore...
+case-d-20210204-20210204142746   case-d-20210204   InProgress   2021-02-04 14:27:47 -0600 CST   <nil>       0        0          2021-02-04 14:27:47 -0600 CST   <none>
+NAME                             BACKUP            STATUS      STARTED                         COMPLETED                       ERRORS   WARNINGS   CREATED                         SELECTOR
+case-d-20210204-20210204142746   case-d-20210204   Completed   2021-02-04 14:27:47 -0600 CST   2021-02-04 14:27:52 -0600 CST   0        1          2021-02-04 14:27:47 -0600 CST   <none>
+INFO: case-d Log messages regarding the priority
+time="2021-02-04T20:27:47Z" level=debug msg="APIGroupVersionsFeatureFlag Priority 3: Common supported but not preferred API group version v2beta2 chosen for rockbands.music.example.io" logSource="pkg/restore/prioritize_group_version.go:129" restore=velero/case-d-20210204-20210204142746
+INFO: case-d Custom Resources restored for case-d
+INFO: case-d success criteria - originally created v1 CR with converted fields on a v2beta2 CR
+apiVersion: v1
+- apiVersion: music.example.io/v2beta2
+      rockbands.music.example.io/originalVersion: v1
+    - apiVersion: music.example.io/v2beta2
+          f:leadGuitar: {}
+          f:leadSinger: {}
+    name: beatles
+    namespace: rockbands-v1
+    selfLink: /apis/music.example.io/v2beta2/namespaces/rockbands-v1/rockbands/beatles
+    drummer: Converted from v1
+    leadGuitar: Converted from v1
+    leadSinger: John Lennon
+INFO: case-d bass default field tells which version it came from - it should tell v2beta2
+  bass: Converted from v2beta2 to v2
+INFO: case-d Starting the restore case case-d
+
+INFO: case-d Delete testing cluster if it already exists
+
+INFO: case-d Setting up testing cluster - this is restore, we want the most modern k8s version
+INFO: case-d Onboarding testing CRD and CR - case-d
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io created
+namespace/cert-manager created
+serviceaccount/cert-manager-cainjector created
+serviceaccount/cert-manager created
+serviceaccount/cert-manager-webhook created
+clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+clusterrole.rbac.authorization.k8s.io/cert-manager-view created
+clusterrole.rbac.authorization.k8s.io/cert-manager-edit created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges created
+clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim created
+role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager:leaderelection created
+role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection created
+rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving created
+service/cert-manager created
+service/cert-manager-webhook created
+deployment.apps/cert-manager-cainjector created
+deployment.apps/cert-manager created
+deployment.apps/cert-manager-webhook created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook created
+INFO: Waiting cert-manager...
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-ngknx              0/1     Pending   0          1s
+cert-manager-cainjector-597859f766-vhls8   0/1     Pending   0          1s
+cert-manager-webhook-7d749b578f-k46m9      0/1     Pending   0          1s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-64cdb5b965-ngknx              0/1     Pending   0          11s
+cert-manager-cainjector-597859f766-vhls8   0/1     Pending   0          11s
+cert-manager-webhook-7d749b578f-k46m9      0/1     Pending   0          11s
+INFO: Waiting cert-manager...
+NAME                                       READY   STATUS              RESTARTS   AGE
+cert-manager-64cdb5b965-ngknx              1/1     Running             0          22s
+cert-manager-cainjector-597859f766-vhls8   0/1     ContainerCreating   0          22s
+cert-manager-webhook-7d749b578f-k46m9      0/1     Running             0          22s
+namespace/music-system created
+customresourcedefinition.apiextensions.k8s.io/rockbands.music.example.io created
+role.rbac.authorization.k8s.io/music-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/music-manager-role created
+clusterrole.rbac.authorization.k8s.io/music-proxy-role created
+clusterrole.rbac.authorization.k8s.io/music-metrics-reader created
+rolebinding.rbac.authorization.k8s.io/music-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/music-proxy-rolebinding created
+service/music-controller-manager-metrics-service created
+service/music-webhook-service created
+deployment.apps/music-controller-manager created
+certificate.cert-manager.io/music-serving-cert created
+issuer.cert-manager.io/music-selfsigned-issuer created
+mutatingwebhookconfiguration.admissionregistration.k8s.io/music-mutating-webhook-configuration created
+validatingwebhookconfiguration.admissionregistration.k8s.io/music-validating-webhook-configuration created
+INFO: Waiting music-system...  Break if it is taking too long...
+NAME                                        READY   STATUS              RESTARTS   AGE
+music-controller-manager-6b684fc7d8-6q7s6   0/2     ContainerCreating   0          2s
+NAME                                        READY   STATUS    RESTARTS   AGE
+music-controller-manager-6b684fc7d8-6q7s6   2/2     Running   0          12s
+
+INFO: Run a Velero Restore or create the testing CRs running:
+
+    ## Testing v2
+    kubectl create namespace rockbands-v2
+    kubectl create -n rockbands-v2 --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-d/target/music/config/samples/music_v2_rockband.yaml
+
+    ## Testing v2beta2
+    kubectl create namespace rockbands-v2beta2
+    kubectl create -n rockbands-v2beta2 --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-d/target/music/config/samples/music_v2beta2_rockband.yaml
+
+    ## Testing v2beta1
+    kubectl create namespace rockbands-v2beta1
+    kubectl create -n rockbands-v2beta1 --validate=false -f https://raw.githubusercontent.com/brito-rafa/k8s-webhooks/master/examples-for-projectvelero/case-d/target/music/config/samples/music_v2beta1_rockband.yaml
+
+INFO: case-d Installing Velero projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.5
+CustomResourceDefinition/backups.velero.io: attempting to create resource
+CustomResourceDefinition/backups.velero.io: created
+CustomResourceDefinition/backupstoragelocations.velero.io: attempting to create resource
+CustomResourceDefinition/backupstoragelocations.velero.io: created
+CustomResourceDefinition/deletebackuprequests.velero.io: attempting to create resource
+CustomResourceDefinition/deletebackuprequests.velero.io: created
+CustomResourceDefinition/downloadrequests.velero.io: attempting to create resource
+CustomResourceDefinition/downloadrequests.velero.io: created
+CustomResourceDefinition/podvolumebackups.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumebackups.velero.io: created
+CustomResourceDefinition/podvolumerestores.velero.io: attempting to create resource
+CustomResourceDefinition/podvolumerestores.velero.io: created
+CustomResourceDefinition/resticrepositories.velero.io: attempting to create resource
+CustomResourceDefinition/resticrepositories.velero.io: created
+CustomResourceDefinition/restores.velero.io: attempting to create resource
+CustomResourceDefinition/restores.velero.io: created
+CustomResourceDefinition/schedules.velero.io: attempting to create resource
+CustomResourceDefinition/schedules.velero.io: created
+CustomResourceDefinition/serverstatusrequests.velero.io: attempting to create resource
+CustomResourceDefinition/serverstatusrequests.velero.io: created
+CustomResourceDefinition/volumesnapshotlocations.velero.io: attempting to create resource
+CustomResourceDefinition/volumesnapshotlocations.velero.io: created
+Waiting for resources to be ready in cluster...
+Namespace/velero: attempting to create resource
+Namespace/velero: created
+ClusterRoleBinding/velero: attempting to create resource
+ClusterRoleBinding/velero: created
+ServiceAccount/velero: attempting to create resource
+ServiceAccount/velero: created
+Secret/cloud-credentials: attempting to create resource
+Secret/cloud-credentials: created
+BackupStorageLocation/default: attempting to create resource
+BackupStorageLocation/default: created
+VolumeSnapshotLocation/default: attempting to create resource
+VolumeSnapshotLocation/default: created
+Deployment/velero: attempting to create resource
+Deployment/velero: created
+Velero is installed! ⛵ Use 'kubectl logs deployment/velero -n velero' to view the status.
+INFO: case-d Enabling --log-level debug on velero
+deployment.apps/velero patched
+INFO: case-d Invoked restore with priority0 , creating user-defined configmap
+configmap/enableapigroupversions created
+INFO: case-d config map
+Name:         enableapigroupversions
+Namespace:    velero
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+restoreResourcesVersionPriority:
+----
+rockbands.music.example.io=v2beta1,v2beta2
+Events:  <none>
+
+INFO: case-d Waiting Velero controller to start...
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS     RESTARTS   AGE
+velero-7f5c5dd6cb-x72t9   0/1     Init:0/1   0          1s
+velero-fb845c8b8-45nlg    0/1     Init:0/1   0          1s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-x72t9   0/1     PodInitializing   0          11s
+velero-fb845c8b8-45nlg    0/1     PodInitializing   0          11s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-x72t9   0/1     PodInitializing   0          21s
+velero-fb845c8b8-45nlg    0/1     PodInitializing   0          21s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-x72t9   0/1     PodInitializing   0          31s
+velero-fb845c8b8-45nlg    0/1     PodInitializing   0          31s
+Waiting Velero controller to start... Break if it is taking longer than expected...
+NAME                      READY   STATUS            RESTARTS   AGE
+velero-7f5c5dd6cb-x72t9   0/1     PodInitializing   0          41s
+velero-fb845c8b8-45nlg    0/1     PodInitializing   0          41s
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+Waiting Velero controller to get backup case-d-20210204 ... Break if it is taking multiple minutes ...
+NAME              STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+case-d-20210204   Completed   0        0          2021-02-04 13:25:28 -0600 CST   29d       default            <none>
+Restore request "case-d-20210204-20210204143054" submitted successfully.
+Run `velero restore describe case-d-20210204-20210204143054` or `velero restore logs case-d-20210204-20210204143054` for more details.
+Waiting restore...
+case-d-20210204-20210204143054   case-d-20210204   InProgress   2021-02-04 14:30:54 -0600 CST   <nil>       0        0          2021-02-04 14:30:54 -0600 CST   <none>
+NAME                             BACKUP            STATUS      STARTED                         COMPLETED                       ERRORS   WARNINGS   CREATED                         SELECTOR
+case-d-20210204-20210204143054   case-d-20210204   Completed   2021-02-04 14:30:54 -0600 CST   2021-02-04 14:30:59 -0600 CST   0        1          2021-02-04 14:30:54 -0600 CST   <none>
+INFO: case-d Log messages regarding the priority
+time="2021-02-04T20:30:54Z" level=debug msg="APIGroupVersionsFeatureFlag Priority 0: User defined API group version v2beta1 chosen for rockbands.music.example.io" logSource="pkg/restore/prioritize_group_version.go:81" restore=velero/case-d-20210204-20210204143054
+INFO: case-d Custom Resources restored for case-d
+INFO: case-d with priority0 success criteria - originally created v1 CR with converted fields on a v2beta1 CR
+apiVersion: music.example.io/v2beta1
+    rockbands.music.example.io/originalVersion: v1
+  - apiVersion: music.example.io/v2
+    fieldsType: FieldsV1
+    fieldsV1:
+  - apiVersion: music.example.io/v2beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+        f:leadGuitar: {}
+        f:leadSinger: {}
+  name: beatles
+  namespace: rockbands-v1
+  selfLink: /apis/music.example.io/v2beta1/namespaces/rockbands-v1/rockbands/beatles
+  leadGuitar: Converted from v1
+  leadSinger: John Lennon
+INFO: case-d bass default field tells which version it came from - it should tell v2beta1
+  bass: Converted from v2beta1 to v2

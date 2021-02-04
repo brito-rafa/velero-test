@@ -152,7 +152,7 @@ function doAllRestores {
 
   doRestoreCase case-c
   echo "INFO: case-c success criteria - originally created v1alpha1 CR with converted fields on a v2 CR"
-  kubectl get rockbands.v2beta2.music.example.io beatles -n rockbands-v1alpha1 -o yaml | egrep -i "v1|v2|lead|beatles"
+  kubectl get rockbands.v2.music.example.io beatles -n rockbands-v1alpha1 -o yaml | egrep -i "v1|v2|lead|bass|beatles"
 
   doRestoreCase case-d
   echo "INFO: case-d success criteria - originally created v1 CR with converted fields on a v2beta2 CR"
@@ -194,7 +194,7 @@ export SECRETFILE="${SECRETFILE:-/Users/rbrito/credentials-velero}" # bring your
 export PREFIX="${PREFIX:-EnableMultiAPIGroups}"
 
 # Velero Image to be tested (only during restore)
-export IMAGE="${IMAGE:-projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.3}"
+export IMAGE="${IMAGE:-projects.registry.vmware.com/tanzu_migrator/velero-pr3133:0.0.5}"
 echo "INFO: Restore Testing the following image: $IMAGE"
 
 
