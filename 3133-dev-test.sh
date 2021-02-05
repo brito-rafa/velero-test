@@ -92,7 +92,7 @@ function doRestoreCase {
   # checking if there is the user-defined priority
   if  [ "$2" == "priority0" ]; then
     echo "INFO: $case Invoked restore with $2 , creating user-defined configmap"
-    echo "rockbands.music.example.io=v2beta1,v2beta2" | tr -d '\n' > restoreResourcesVersionPriority
+    echo "   rockbands.music.example.io = v2beta1, v2beta2 " > restoreResourcesVersionPriority
     kubectl create configmap enableapigroupversions --from-file=restoreResourcesVersionPriority -n velero
     echo "INFO: $case config map"
     kubectl describe configmap enableapigroupversions -n velero
