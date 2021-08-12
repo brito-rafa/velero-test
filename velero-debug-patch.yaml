@@ -1,0 +1,9 @@
+spec:
+  template:
+    spec:
+      containers:
+      - args:
+        - server
+        - --log-level
+        - debug
+        name: velero
